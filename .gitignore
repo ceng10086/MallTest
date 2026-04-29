@@ -18,3 +18,6 @@ Thumbs.db
 
 # Template files (converted to .md already)
 *.docx
+mall/test/security/*.html
+mall/test/security/*.md
+!PHASE4_REPORT.md
