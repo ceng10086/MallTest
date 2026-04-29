@@ -1,0 +1,16 @@
+# 集成测试专用配置 — 连接 Docker MySQL/Redis
+spring:
+  datasource:
+    url: jdbc:mysql://localhost:3306/mall?useUnicode=true&characterEncoding=utf-8&serverTimezone=Asia/Shanghai&useSSL=false
+    username: root
+    password: root
+  redis:
+    host: localhost
+    port: 6379
+    password:
+
+# 降低日志噪音
+logging:
+  level:
+    root: WARN
+    com.macro.mall: INFO
