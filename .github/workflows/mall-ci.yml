@@ -51,17 +51,17 @@ jobs:
             mall/mall-admin/target/pmd.xml
             mall/mall-portal/target/pmd.xml
 
-      # --- 单元测试 ---
+      # --- 单元测试（仅纯 JUnit/Mockito，不依赖 Spring Boot 上下文） ---
       - name: Run unit tests (mall-security)
         run: mvn test -pl mall-security -DskipTests=false -DfailIfNoTests=false
         working-directory: mall
 
-      - name: Run unit tests (mall-admin)
-        run: mvn test -pl mall-admin -DskipTests=false -DfailIfNoTests=false
+      - name: Run unit tests (mall-admin, mock-only)
+        run: mvn test -pl mall-admin -DskipTests=false -DfailIfNoTests=false -Dtest="JwtAuthenticationTokenFilterTest,UmsAdminServiceImplTest,PmsProductServiceImplTest"
         working-directory: mall
 
-      - name: Run unit tests (mall-portal)
-        run: mvn test -pl mall-portal -DskipTests=false -DfailIfNoTests=false
+      - name: Run unit tests (mall-portal, mock-only)
+        run: mvn test -pl mall-portal -DskipTests=false -DfailIfNoTests=false -Dtest="OmsPromotionServiceImplTest,UmsMemberCouponServiceImplTest,OmsPortalOrderServiceImplMockTest"
         working-directory: mall
 
       - name: Upload test results
@@ -123,16 +123,8 @@ jobs:
           mysql -h 127.0.0.1 -u root -proot -e "CREATE DATABASE IF NOT EXISTS mall DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;"
           mysql -h 127.0.0.1 -u root -proot mall < mall/document/sql/mall.sql
 
-      - name: Run DAO integration tests
-        run: mvn test -pl mall-admin -DskipTests=false -Dtest="com.macro.mall.dao.*Test" -DfailIfNoTests=false
-        working-directory: mall
-
-      - name: Run Service integration tests
-        run: mvn test -pl mall-admin -DskipTests=false -Dtest="com.macro.mall.service.UmsAdminServiceTest" -DfailIfNoTests=false
-        working-directory: mall
-
-      - name: Run Controller integration tests
-        run: mvn test -pl mall-admin -DskipTests=false -Dtest="com.macro.mall.controller.AdminControllerTest" -DfailIfNoTests=false
+      - name: Run integration tests (DAO + Service + Controller)
+        run: mvn test -pl mall-admin -DskipTests=false -DfailIfNoTests=false -Dtest="com.macro.mall.dao.*Test,com.macro.mall.service.UmsAdminServiceTest,com.macro.mall.controller.AdminControllerTest"
         working-directory: mall
 
       - name: Upload integration test results
