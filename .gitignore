@@ -1,0 +1,20 @@
+# JMeter artifacts
+jmeter.log
+mall/test/jmeter/results.jtl
+mall/test/jmeter/report/
+
+# Playwright artifacts
+mall-admin-web/test-results/
+mall-admin-web/playwright-report/
+
+# IDE
+.idea/
+*.iml
+.vscode/
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Template files (converted to .md already)
+*.docx
