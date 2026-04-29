@@ -256,6 +256,35 @@
 
             </plugins>
         </pluginManagement>
+        <plugins>
+            <!-- SpotBugs: Java 静态分析，检测潜在 Bug。4.7.x 兼容 Java 8 -->
+            <plugin>
+                <groupId>com.github.spotbugs</groupId>
+                <artifactId>spotbugs-maven-plugin</artifactId>
+                <version>4.7.3.6</version>
+                <configuration>
+                    <effort>Max</effort>
+                    <threshold>Low</threshold>
+                    <xmlOutput>true</xmlOutput>
+                    <htmlOutput>true</htmlOutput>
+                    <outputDirectory>${project.build.directory}/spotbugs</outputDirectory>
+                </configuration>
+            </plugin>
+            <!-- PMD: 代码规范检查 -->
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-pmd-plugin</artifactId>
+                <version>3.26.0</version>
+                <configuration>
+                    <rulesets>
+                        <ruleset>/category/java/bestpractices.xml</ruleset>
+                        <ruleset>/category/java/errorprone.xml</ruleset>
+                    </rulesets>
+                    <linkXRef>false</linkXRef>
+                    <outputDirectory>${project.build.directory}/pmd</outputDirectory>
+                </configuration>
+            </plugin>
+        </plugins>
     </build>
 
     <!--使用aliyun的Maven镜像源提升下载速度-->
